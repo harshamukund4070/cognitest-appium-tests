@@ -1,0 +1,14 @@
+reports/
+reports/screenshots/
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.env
+*.log
+appium.log
+*.hprof
+app-debug.apk
+app-debug.apk.placeholder
+.DS_Store
+Thumbs.db
