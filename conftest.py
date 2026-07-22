@@ -5,7 +5,7 @@ Handles driver lifecycle, test result capture, and Excel report generation.
 import time
 import pytest
 from appium import webdriver
-from appium.options import UiAutomator2Options
+from appium.options.android import UiAutomator2Options
 from config.config import APPIUM_SERVER_URL, DESIRED_CAPS
 from utils.excel_reporter import reporter
 
