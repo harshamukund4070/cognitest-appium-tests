@@ -36,7 +36,9 @@ class MockWebElement:
         return True
 
     def get_attribute(self, name):
-        return self._attributes.get(name, "mock-attr")
+        if name == "type" and "password" in self._text:
+            return "password"
+        return self._attributes.get(name, name)
 
 class MockSeleniumDriver:
     def __init__(self):
