@@ -19,6 +19,9 @@ mkdir -p reports/screenshots
 # Set APK path in config
 export APK_PATH=$(pwd)/app-debug.apk
 
+# Set PythonPath to workspace root to resolve module imports (like utils)
+export PYTHONPATH=$(pwd)
+
 echo "=== Running Appium, Selenium and API Test Suites ==="
 if [ -n "$1" ]; then
   pytest "$1" \
