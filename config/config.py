@@ -38,7 +38,7 @@ TEST_NEW_PASSWORD = os.getenv("TEST_NEW_PASSWORD", "NewPass@1234")
 TEST_NAME         = os.getenv("TEST_NAME", "Test User")
 
 # ─── Backend ──────────────────────────────────────────────────────────────────
-BACKEND_URL = os.getenv("BACKEND_URL", "http://10.35.23.113:3001")
+BACKEND_URL = os.getenv("BACKEND_URL", "http://10.125.52.113:3001")
 
 # ─── Timeouts ─────────────────────────────────────────────────────────────────
 IMPLICIT_WAIT    = 15   # seconds

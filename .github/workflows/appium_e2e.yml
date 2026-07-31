@@ -185,6 +185,22 @@ jobs:
           path: reports/test_output.log
           retention-days: 14
 
+      - name: Upload SAST security report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: sast-vulnerability-report
+          path: reports/sast_vulnerabilities.txt
+          retention-days: 30
+
+      - name: Upload Load test report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: load-testing-report
+          path: reports/load_test_report.json
+          retention-days: 30
+
       # ── 12. Comment on PR ─────────────────────────────────────────────────
       - name: Comment test results on PR
         uses: actions/github-script@v7

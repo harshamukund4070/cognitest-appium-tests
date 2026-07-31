@@ -22,6 +22,10 @@ export APK_PATH=$(pwd)/app-debug.apk
 # Set PythonPath to workspace root to resolve module imports (like utils)
 export PYTHONPATH=$(pwd)
 
+echo "=== Running Python Vulnerability Check (Bandit SAST) ==="
+bandit -r . -x "./venv,./.git,./.github" -f txt -o reports/sast_vulnerabilities.txt || true
+echo "Security scan complete. Summary saved to reports/sast_vulnerabilities.txt."
+
 echo "=== Running Appium, Selenium and API Test Suites ==="
 if [ -n "$1" ]; then
   pytest "$1" \
@@ -40,5 +44,8 @@ else
     -o "log_cli=true" \
     2>&1 | tee reports/test_output.log || true
 fi
+
+echo "=== Running Baseline System Load Testing (100 VUs x 1 Min) ==="
+python3 load_tests/run_load_test.py || true
 
 echo "=== E2E Test Suite Run Complete ==="
