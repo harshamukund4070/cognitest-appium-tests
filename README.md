@@ -7,16 +7,16 @@ CogniTest is a state-of-the-art, full-stack medical diagnostics ecosystem combin
 ---
 
 ## 📊 CogniTest Comprehensive Verification Dashboard
-**700 total E2E test cases** validating Web Frontend, Android Mobile, Backend REST API, and System Load limits.
+**Live verification report** generated dynamically from the latest test suite execution.
 
 ### Grand Total
 | Component | Total | Passed | Failed | Pass Rate | Status |
 |---|---|---|---|---|---|
-| **Web Frontend E2E (Selenium)** | 300 | 300 | 0 | 100.0% | ✅ PASSING |
-| **Android Mobile E2E (Appium)** | 300 | 300 | 0 | 100.0% | ✅ PASSING |
-| **Backend REST API Tests** | 100 | 100 | 0 | 100.0% | ✅ PASSING |
-| **System Load Testing** | 100 | 100 | 0 | 100.0% | ✅ PASSING |
-| **ALL COMBINED** | **800** | **800** | **0** | **100.0%** | ✅ PASSING |
+| **Web Frontend E2E (Selenium)** | 300 | 300 | 0 | 100.0% | 🟢 PASSING |
+| **Android Mobile E2E (Appium)** | 300 | 300 | 0 | 100.0% | 🟢 PASSING |
+| **Backend REST API Tests** | 100 | 100 | 0 | 100.0% | 🟢 PASSING |
+| **System Load Testing** | 100 VUs | 100 | 0 | 100.0% | 🟢 PASSING |
+| **ALL COMBINED** | 800 | 800 | 0 | 100.0% | 🟢 PASSING |
 
 ---
 
@@ -27,18 +27,18 @@ CogniTest is a state-of-the-art, full-stack medical diagnostics ecosystem combin
 
 | Metric | Value | Interpretation |
 |---|---|---|
-| Requests per second | 384.2 req/s | Server handled ~384 requests/sec |
-| Average response time | 18 ms | Typical client waits 18ms |
-| Fastest response | 4 ms | Best-case latency |
-| Slowest response | 212 ms | Worst-case latency |
-| p95 response time | 32 ms | 95% of users under 32ms |
-| HTTP Error Rate | 0.00% | No failed requests |
+| Requests per second | 1586.25 req/s | Server handled ~1586.2 requests/sec |
+| Average response time | 10.58 ms | Typical client waits 10.6ms |
+| Fastest response | 0.61 ms | Best-case latency |
+| Slowest response | 1072.81 ms | Worst-case latency |
+| p95 response time | 18.20 ms | 95% of users under 18.2ms |
+| HTTP Error Rate | 0.00% | Ratio of failed requests |
 
 #### ✅ Threshold Validation
-* **p95 Response Time:** `< 3,000 ms` | **32 ms** | ✅ **PASS**
-* **Avg Response Time:** `< 1,500 ms` | **18 ms** | ✅ **PASS**
+* **p95 Response Time:** `< 3,000 ms` | **18.20 ms** | ✅ **PASS**
+* **Avg Response Time:** `< 1,500 ms` | **10.58 ms** | ✅ **PASS**
 * **HTTP Error Rate:** `< 10%` | **0.00%** | ✅ **PASS**
-* **Check Pass Rate:** `> 85%` | **100.0%** | ✅ **PASS**
+* **Check Pass Rate:** `> 85%` | **100.00%** | ✅ **PASS**
 
 ---
 
@@ -47,10 +47,10 @@ CogniTest is a state-of-the-art, full-stack medical diagnostics ecosystem combin
 
 | Suite | Total | Passed | Failed | Pass Rate |
 |---|---|---|---|---|
-| Admin / Doctor Login | 80 | 80 | 0 | 100% |
-| Analytics Dashboard Metrics | 80 | 80 | 0 | 100% |
-| Patient Registry & Details | 80 | 80 | 0 | 100% |
-| Web Settings & Preferences | 60 | 60 | 0 | 100% |
+| Admin / Doctor Login | 80 | 80 | 0 | 100.0% |
+| Analytics Dashboard Metrics | 80 | 80 | 0 | 100.0% |
+| Patient Registry & Details | 80 | 80 | 0 | 100.0% |
+| Web Settings & Preferences | 60 | 60 | 0 | 100.0% |
 
 ---
 
@@ -59,13 +59,13 @@ CogniTest is a state-of-the-art, full-stack medical diagnostics ecosystem combin
 
 | Suite | Total | Passed | Failed | Pass Rate |
 |---|---|---|---|---|
-| Splash & Branding | 20 | 20 | 0 | 100% |
-| Auth Gateways | 50 | 50 | 0 | 100% |
-| Onboarding Details | 40 | 40 | 0 | 100% |
-| Dashboard Navigation | 40 | 40 | 0 | 100% |
-| Cognitive Test Forms | 60 | 60 | 0 | 100% |
-| Diagnostic Reports | 40 | 40 | 0 | 100% |
-| Profile Settings & CogniAI | 50 | 50 | 0 | 100% |
+| Splash & Branding | 20 | 20 | 0 | 100.0% |
+| Auth Gateways | 50 | 50 | 0 | 100.0% |
+| Onboarding Details | 40 | 40 | 0 | 100.0% |
+| Dashboard Navigation | 40 | 40 | 0 | 100.0% |
+| Cognitive Test Forms | 60 | 60 | 0 | 100.0% |
+| Diagnostic Reports | 40 | 40 | 0 | 100.0% |
+| Profile Settings & CogniAI | 50 | 50 | 0 | 100.0% |
 
 ---
 
@@ -74,10 +74,18 @@ CogniTest is a state-of-the-art, full-stack medical diagnostics ecosystem combin
 
 | Suite | Total | Passed | Failed | Pass Rate |
 |---|---|---|---|---|
-| User Registration & Auth | 40 | 40 | 0 | 100% |
-| User Profile Service | 20 | 20 | 0 | 100% |
-| Cognitive Test Submissions | 20 | 20 | 0 | 100% |
-| MRI Scan Analysis Service | 20 | 20 | 0 | 100% |
+| User Registration & Auth | 40 | 40 | 0 | 100.0% |
+| User Profile Service | 20 | 20 | 0 | 100.0% |
+| Cognitive Test Submissions | 20 | 20 | 0 | 100.0% |
+| MRI Scan Analysis Service | 20 | 20 | 0 | 100.0% |
+
+---
+
+## 🔒 Security Auditing & SAST / DAST
+The entire codebase undergoes regular security scanning integrated within the GitHub Actions pipeline:
+* **SAST (Static Application Security Testing):** Bandit python checks found **339 issues** (High: 0, Medium: 5, Low: 334).
+* **DAST (Dynamic Application Security Testing):** API penetration testing checks with OWASP ZAP.
+* **Secret Scanning:** Banned hardcoded credentials and token leakage checks.
 
 ---
 
@@ -90,11 +98,3 @@ CogniTest is a state-of-the-art, full-stack medical diagnostics ecosystem combin
 | **Backend API** | NestJS (TypeScript) | Prisma ORM, PostgreSQL, Passport JWT |
 | **Test Automation** | Python 3.11 | pytest, Selenium, Appium (UiAutomator2) |
 | **CI/CD DevOps** | GitHub Actions | Android Emulator Runner, Upload Artifacts |
-
----
-
-## 🔒 Security Auditing & SAST / DAST
-The entire codebase undergoes regular security scanning integrated within the GitHub Actions pipeline:
-* **SAST (Static Application Security Testing):** Code vulnerability scanning with SonarQube & CodeQL.
-* **DAST (Dynamic Application Security Testing):** API penetration testing checks with OWASP ZAP.
-* **Secret Scanning:** Banned hardcoded credentials and token leakage checks.
