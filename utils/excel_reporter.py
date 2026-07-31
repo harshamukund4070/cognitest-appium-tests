@@ -91,9 +91,10 @@ class ExcelReporter:
         if "Sheet" in wb.sheetnames:
             del wb["Sheet"]
 
-        wb.save(EXCEL_REPORT)
-        print(f"\n✅  Excel report saved → {EXCEL_REPORT}")
-        return EXCEL_REPORT
+        report_path = os.getenv("EXCEL_REPORT_PATH", EXCEL_REPORT)
+        wb.save(report_path)
+        print(f"\n✅  Excel report saved → {report_path}")
+        return report_path
 
     # ── Sheet builders ─────────────────────────────────────────────────────────
     def _write_summary_sheet(self, wb):

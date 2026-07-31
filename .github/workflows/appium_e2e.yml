@@ -16,6 +16,8 @@ jobs:
   appium-e2e-tests:
     name: Appium E2E Tests (Android Emulator)
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     timeout-minutes: 90
 
     strategy:
@@ -114,6 +116,13 @@ jobs:
           sleep 10
           curl -s http://127.0.0.1:4723/status | python3 -c "import sys,json; d=json.load(sys.stdin); print('✅ Appium ready:', d['value']['message'])"
 
+      # ── 7.5 Start Mock Backend Server ──────────────────────────────────────
+      - name: Start Mock Backend Server
+        run: |
+          python3 utils/mock_backend.py &
+          echo "Waiting for Mock Backend Server to initialize..."
+          sleep 5
+
       # ── 8. Run tests inside emulator ──────────────────────────────────────
       - name: Run all 700 E2E tests
         uses: reactivecircus/android-emulator-runner@v2
@@ -145,20 +154,53 @@ jobs:
           git push origin main || echo "Push failed"
 
       # ── 11. Upload reports as artifacts ───────────────────────────────────
-      - name: Upload Excel report
+      # ── 11. Upload reports as artifacts ───────────────────────────────────
+      - name: Upload API HTML report
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: excel-analysis-report
-          path: reports/cognitest_e2e_report.xlsx
+          name: api-html-report
+          path: reports/api_report.html
           retention-days: 30
 
-      - name: Upload HTML pytest report
+      - name: Upload API Excel report
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: html-pytest-report
-          path: reports/pytest_report.html
+          name: api-excel-report
+          path: reports/api_e2e_report.xlsx
+          retention-days: 30
+
+      - name: Upload Selenium HTML report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: selenium-html-report
+          path: reports/selenium_report.html
+          retention-days: 30
+
+      - name: Upload Selenium Excel report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: selenium-excel-report
+          path: reports/selenium_e2e_report.xlsx
+          retention-days: 30
+
+      - name: Upload Appium HTML report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: appium-html-report
+          path: reports/appium_report.html
+          retention-days: 30
+
+      - name: Upload Appium Excel report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: appium-excel-report
+          path: reports/appium_e2e_report.xlsx
           retention-days: 30
 
       - name: Upload test screenshots
