@@ -27,16 +27,16 @@ CogniTest is a state-of-the-art, full-stack medical diagnostics ecosystem combin
 
 | Metric | Value | Interpretation |
 |---|---|---|
-| Requests per second | 1586.25 req/s | Server handled ~1586.2 requests/sec |
-| Average response time | 10.58 ms | Typical client waits 10.6ms |
-| Fastest response | 0.61 ms | Best-case latency |
-| Slowest response | 1072.81 ms | Worst-case latency |
-| p95 response time | 18.20 ms | 95% of users under 18.2ms |
+| Requests per second | 1653.90 req/s | Server handled ~1653.9 requests/sec |
+| Average response time | 8.83 ms | Typical client waits 8.8ms |
+| Fastest response | 0.59 ms | Best-case latency |
+| Slowest response | 1233.10 ms | Worst-case latency |
+| p95 response time | 14.74 ms | 95% of users under 14.7ms |
 | HTTP Error Rate | 0.00% | Ratio of failed requests |
 
 #### ✅ Threshold Validation
-* **p95 Response Time:** `< 3,000 ms` | **18.20 ms** | ✅ **PASS**
-* **Avg Response Time:** `< 1,500 ms` | **10.58 ms** | ✅ **PASS**
+* **p95 Response Time:** `< 3,000 ms` | **14.74 ms** | ✅ **PASS**
+* **Avg Response Time:** `< 1,500 ms` | **8.83 ms** | ✅ **PASS**
 * **HTTP Error Rate:** `< 10%` | **0.00%** | ✅ **PASS**
 * **Check Pass Rate:** `> 85%` | **100.00%** | ✅ **PASS**
 
