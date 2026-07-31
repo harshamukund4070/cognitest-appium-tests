@@ -11,3 +11,4 @@ allure-pytest==2.13.5
 pytest-xdist==3.5.0
 aiohttp==3.9.3
 bandit==1.7.8
+pytest-rerunfailures==14.0
