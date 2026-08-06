@@ -153,14 +153,13 @@ jobs:
           git commit -m "docs: update main dashboard with live verification stats [skip ci]" || echo "No changes to commit"
           git push origin main || echo "Push failed"
 
-      # ── 11. Upload reports as artifacts ───────────────────────────────────
-      # ── 11. Upload reports as artifacts ───────────────────────────────────
-      - name: Upload API HTML report
+      # ── 11. Upload Excel reports as artifacts ──────────────────────────────
+      - name: Upload Unit Test Excel report
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: api-html-report
-          path: reports/api_report.html
+          name: unit-test-excel-report
+          path: reports/unit_test_report.xlsx
           retention-days: 30
 
       - name: Upload API Excel report
@@ -171,15 +170,7 @@ jobs:
           path: reports/api_e2e_report.xlsx
           retention-days: 30
 
-      - name: Upload Selenium HTML report
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: selenium-html-report
-          path: reports/selenium_report.html
-          retention-days: 30
-
-      - name: Upload Selenium Excel report
+      - name: Upload Selenium Excel report (300 Web Tests)
         uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -187,15 +178,7 @@ jobs:
           path: reports/selenium_e2e_report.xlsx
           retention-days: 30
 
-      - name: Upload Appium HTML report
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: appium-html-report
-          path: reports/appium_report.html
-          retention-days: 30
-
-      - name: Upload Appium Excel report
+      - name: Upload Appium Excel report (300 Mobile Tests)
         uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -203,44 +186,20 @@ jobs:
           path: reports/appium_e2e_report.xlsx
           retention-days: 30
 
-      - name: Upload test screenshots
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: test-screenshots
-          path: reports/screenshots/
-          retention-days: 14
-
-      - name: Upload Appium server log
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: appium-server-log
-          path: appium.log
-          retention-days: 7
-
-      - name: Upload full test output log
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: test-output-log
-          path: reports/test_output.log
-          retention-days: 14
-
-      - name: Upload SAST security report
+      - name: Upload SAST Security Vulnerability Excel report
         uses: actions/upload-artifact@v4
         if: always()
         with:
           name: sast-vulnerability-report
-          path: reports/sast_vulnerabilities.txt
+          path: reports/sast_vulnerability_report.xlsx
           retention-days: 30
 
-      - name: Upload Load test report
+      - name: Upload System Load Test & Thresholds Excel report
         uses: actions/upload-artifact@v4
         if: always()
         with:
           name: load-testing-report
-          path: reports/load_test_report.json
+          path: reports/load_testing_report.xlsx
           retention-days: 30
 
       # ── 12. Comment on PR ─────────────────────────────────────────────────

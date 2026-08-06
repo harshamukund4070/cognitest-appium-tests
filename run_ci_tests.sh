@@ -31,10 +31,11 @@ export PYTHONPATH=$(pwd)
 
 echo "=== Running Python Vulnerability Check (Bandit SAST) ==="
 bandit -r . -x "./venv,./.git,./.github" -f txt -o reports/sast_vulnerabilities.txt || true
-echo "Security scan complete. Summary saved to reports/sast_vulnerabilities.txt."
+python3 utils/generate_sast_excel.py || true
+echo "Security scan complete. Excel report saved to reports/sast_vulnerability_report.xlsx."
 
-# ── 1. Backend REST API Tests (100 tests) ───────────────────
-echo "=== Running REST API Verification Suite ==="
+# ── 1. Backend REST API / Unit Tests (100 tests) ───────────
+echo "=== Running REST API & Unit Verification Suite ==="
 export EXCEL_REPORT_PATH=$(pwd)/reports/api_e2e_report.xlsx
 pytest api_tests/tests \
   --html=reports/api_report.html \
@@ -42,6 +43,7 @@ pytest api_tests/tests \
   -v --tb=short \
   -o "log_cli=true" \
   2>&1 | tee -a reports/test_output.log || true
+cp reports/api_e2e_report.xlsx reports/unit_test_report.xlsx || true
 
 # ── 2. Web Frontend E2E (Selenium - 300 tests) ───────────────
 echo "=== Running Web Frontend E2E (Selenium) Suite ==="

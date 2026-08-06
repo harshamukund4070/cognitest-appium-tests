@@ -135,10 +135,103 @@ async def main():
         "overall_status": "PASSED" if system_pass else "FAILED"
     }
     
-    # Save report
+    # Save JSON report
     os.makedirs("reports", exist_ok=True)
     with open("reports/load_test_report.json", "w") as f:
         json.dump(report, f, indent=4)
+
+    # Save Excel report
+    try:
+        from openpyxl import Workbook
+        from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
+        from openpyxl.utils import get_column_letter
+
+        wb = Workbook()
+        ws = wb.active
+        ws.title = "⚡ Load & Thresholds"
+        ws.sheet_view.showGridLines = False
+
+        c_header_bg = "1E3A5F"
+        c_border = "B0C4DE"
+
+        def _border():
+            side = Side(style="thin", color=c_border)
+            return Border(left=side, right=side, top=side, bottom=side)
+
+        def _fill(color):
+            return PatternFill(fill_type="solid", fgColor=color)
+
+        def _center():
+            return Alignment(horizontal="center", vertical="center", wrap_text=True)
+
+        def _left():
+            return Alignment(horizontal="left", vertical="center", wrap_text=True)
+
+        # Title
+        ws.merge_cells("A1:F1")
+        ws["A1"] = "⚡ CogniTest System Load & Performance Threshold Report"
+        ws["A1"].font = Font(bold=True, color="FFFFFF", name="Calibri", size=16)
+        ws["A1"].fill = _fill("0D2B4E")
+        ws["A1"].alignment = _center()
+        ws.row_dimensions[1].height = 36
+
+        kpi_headers = ["Virtual Users", "Total Requests", "Throughput (RPS)", "Avg Latency (ms)", "Pass Rate %", "Overall Status"]
+        status_val = "PASSED ✅" if system_pass else "FAILED ❌"
+        kpi_values = [CONCURRENT_USERS, total_requests, f"{rps:.2f}", f"{avg_lat:.2f}", f"{pass_rate:.1f}%", status_val]
+        kpi_colors = ["1E3A5F", "0D6B8E", "1A6E1A", "7D5A00", "1A6E1A" if pass_ok else "8B0000", "1A6E1A" if system_pass else "8B0000"]
+
+        ws.append([])
+        ws.append(kpi_headers)
+        ws.append(kpi_values)
+
+        for col_idx, (hdr, val, col) in enumerate(zip(kpi_headers, kpi_values, kpi_colors), start=1):
+            hcell = ws.cell(row=3, column=col_idx, value=hdr)
+            hcell.font = Font(bold=True, color="FFFFFF", name="Calibri", size=11)
+            hcell.fill = _fill(col)
+            hcell.alignment = _center()
+            hcell.border = _border()
+
+            vcell = ws.cell(row=4, column=col_idx, value=val)
+            vcell.font = Font(bold=True, name="Calibri", size=13)
+            vcell.alignment = _center()
+            vcell.border = _border()
+
+        ws.row_dimensions[3].height = 26
+        ws.row_dimensions[4].height = 32
+
+        # Thresholds Table
+        ws.append([])
+        ws.append(["Threshold Metric", "Requirement", "Observed Value", "Status"])
+        th_headers_row = 6
+        for c_idx in range(1, 5):
+            cell = ws.cell(row=th_headers_row, column=c_idx)
+            cell.font = Font(bold=True, color="FFFFFF", name="Calibri", size=11)
+            cell.fill = _fill(c_header_bg)
+            cell.alignment = _center()
+            cell.border = _border()
+
+        threshold_rows = [
+            ("p95 Latency", "< 3000 ms", f"{p95_lat:.2f} ms", "PASS ✅" if p95_ok else "FAIL ❌"),
+            ("Avg Latency", "< 1500 ms", f"{avg_lat:.2f} ms", "PASS ✅" if avg_ok else "FAIL ❌"),
+            ("HTTP Error Rate", "< 10.0 %", f"{error_rate:.2f} %", "PASS ✅" if err_ok else "FAIL ❌"),
+            ("Test Pass Rate", "> 85.0 %", f"{pass_rate:.2f} %", "PASS ✅" if pass_ok else "FAIL ❌"),
+        ]
+
+        for r_offset, r_data in enumerate(threshold_rows, start=7):
+            ws.append(list(r_data))
+            for c_idx in range(1, 5):
+                cell = ws.cell(row=r_offset, column=c_idx)
+                cell.border = _border()
+                cell.alignment = _center() if c_idx != 1 else _left()
+
+        for c_idx in range(1, 7):
+            ws.column_dimensions[get_column_letter(c_idx)].width = 22
+
+        excel_out = "reports/load_testing_report.xlsx"
+        wb.save(excel_out)
+        print(f"✅ Load testing Excel report generated → {excel_out}")
+    except Exception as ex:
+        print(f"Warning: Could not save load test Excel report: {ex}")
         
     print("\n" + "="*50)
     print("           SYSTEM LOAD TEST COMPLETED           ")
